@@ -8,8 +8,8 @@ function createRouter(db) {
 
   router.post('/event', (req, res, next) => {
     db.query(
-      'INSERT INTO events (owner, name, description, date) VALUES (?,?,?,?)',
-      [req.body.owner, req.body.name, req.body.description, new Date(req.body.date)],
+      'INSERT INTO events (owner, name,Price, description, date) VALUES (?,?,?,?,?)',
+      [req.body.owner, req.body.name, req.body.Price,req.body.description, new Date(req.body.date)],
       (error) => {
         if (error) {
           console.error(error);
