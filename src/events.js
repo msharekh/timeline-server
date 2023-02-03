@@ -6,16 +6,17 @@ function createRouter(db) {
 
   // the routes are defined here
 
+
   router.post('/event', (req, res, next) => {
     db.query(
       'INSERT INTO events (owner, name,Price, description, date) VALUES (?,?,?,?,?)',
-      [req.body.owner, req.body.name, req.body.Price,req.body.description, new Date(req.body.date)],
+      [req.body.owner, req.body.name, req.body.price,req.body.description, new Date(req.body.date)],
       (error) => {
         if (error) {
           console.error(error);
           res.status(500).json({status: 'error'});
         } else {
-          console.error(req.body.name+"...ADDED");
+          console.log(JSON.stringify(req.body) +"...ADDED");
           res.status(200).json({status: 'ok'});
         }
       }
@@ -24,7 +25,7 @@ function createRouter(db) {
 
   router.get('/event', function (req, res, next) {
     db.query(
-      'SELECT id, name, description, date FROM events WHERE owner=? ORDER BY date LIMIT 10 OFFSET ?',
+      'SELECT id, name, description, date FROM events',
       [owner, 10*(req.params.page || 0)],
       (error, results) => {
         if (error) {
