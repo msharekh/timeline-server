@@ -25,7 +25,7 @@ function createRouter(db) {
 
   router.get('/event', function (req, res, next) {
     db.query(
-      'SELECT id, name, description, date FROM events LIMIT 5;',
+      'SELECT id, name,price, description, date FROM events order by id desc LIMIT 5;',
       [owner, 10*(req.params.page || 0)],
       (error, results) => {
         if (error) {
